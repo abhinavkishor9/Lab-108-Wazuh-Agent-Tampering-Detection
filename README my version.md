@@ -1,16 +1,16 @@
 # Lab-108-Wazuh-Agent-Tampering-Detection
 ## Overview
 A Wazuh agent provides endpoint telemetry to the Wazuh manager. If the agent is stopped, its configuration is altered, its service settings are changed, or its installation is removed, monitoring coverage may be interrupted.
-Agent service changes
+### Agent service changes
 Investigate Windows System Event ID 7036 for service state transitions, Event ID 7040 for startup-type changes, and Event ID 7045 for service installation.
 
-Agent configuration integrity
+### Agent configuration integrity
 Record the SHA-256 hash of the agent configuration file and compare it after the controlled test. A changed hash indicates a file-content difference, not necessarily malicious modification.
 
-Agent connectivity
+### Agent connectivity
 Compare the local agent status with its status on the manager. Wazuh tracks agent states such as Active, Disconnected, Pending, and Never connected. 
 
-Important distinction: Wazuh's built-in anti-tampering feature prevents unauthorized agent removal but is supported only on Linux endpoints. This Windows lab focuses on detecting service and configuration changes using independent telemetry rather than claiming that the Windows agent has that protection enabled. 
+> Important distinction: Wazuh's built-in anti-tampering feature prevents unauthorized agent removal but is supported only on Linux endpoints. This Windows lab focuses on detecting service and configuration changes using independent telemetry rather than claiming that the Windows agent has that protection enabled. 
 
 The Wazuh agent provides endpoint telemetry to a centralized manager. If the agent is stopped, its startup configuration is modified, its configuration file is changed, or its communication is interrupted, the monitoring platform may lose visibility into endpoint activity.
 This lab examines the Windows Wazuh agent service, its configuration file, local state information, Windows Service Control Manager events, and the agent's status on the Wazuh manager. A controlled service stop/start test was performed to investigate the evidence available when agent availability changes.
